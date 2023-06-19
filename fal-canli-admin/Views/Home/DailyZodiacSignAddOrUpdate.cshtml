@@ -1,0 +1,134 @@
+﻿@model DailyZodiacSignModelForAddUpdate
+@{
+    ViewData["Title"] = "Günlük Fal";
+    var id = ViewBag.ObjectId;
+
+    string type = "";
+    string date = "";
+    int date_day = 0;
+    int date_month = 0;
+    int date_year = 0;
+    string title = "";
+    string explanation = "";
+
+    if (Model != null)
+    {
+        type = Model.type;
+        date = Model.date;
+        var date_dt = Convert.ToDateTime(date);
+        date_day = date_dt.Day;
+        date_month = date_dt.Month;
+        date_year = date_dt.Year;
+        title = Model.title;
+        explanation = Model.explanation;
+    }
+}
+
+<form method="post">
+    <input type="hidden" name="objectId" value="@id" />
+    <div class="d-flex flex-column gap-7 gap-lg-10">
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Günlük Fal</h2>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Burç</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" name="type" aria-label="Select example">
+                            @{
+                                List<string> zodiacSigns = new List<string>() { "koç", "boğa", "ikizler", "yengeç", "aslan", "başak", "terazi", "akrep", "yay", "oğlak", "kova", "balık" };
+
+                                foreach (var item in zodiacSigns)
+                                {
+                                    if (item == type)
+                                    {
+                                        <option value="@item" selected>@item</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Doğum tarihi</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="date_day">
+                            <option>Gün</option>
+                            @{
+                                for (int i = 1; i <= 31; i++)
+                                {
+                                    if (date_day == i)
+                                    {
+                                        <option value="@i" selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <select class="form-select" aria-label="Select example" name="date_month">
+                            <option>Ay</option>
+                            @{
+                                List<string> months = new List<string>() { "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" };
+
+                                for (int i = 1; i <= 12; i++)
+                                {
+                                    if (date_month == i)
+                                    {
+                                        <option value="@i" selected>@months[i - 1]</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@months[i - 1]</option>
+                                    }
+                                }
+
+                            }
+
+                        </select>
+                        <select class="form-select" aria-label="Select example" name="date_year">
+                            <option>Yıl</option>
+                            @{
+                                for (int i = 2022; i <= 2032; i++)
+                                {
+                                    if (date_year == i)
+                                    {
+                                        <option value="@i" selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Başlık</label>
+                    <input type="text" name="title" class="form-control mb-2" placeholder="Başlık" value="@title">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Açıklama</label>
+                    <textarea name="explanation" class="form-control mb-2">@explanation</textarea>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <a href="/Home/DailyZodiacSign" class="btn btn-secondary">Geri Dön</a>
+                        <a href="/Home/DailyZodiacSignDelete/@id" class="btn btn-danger">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

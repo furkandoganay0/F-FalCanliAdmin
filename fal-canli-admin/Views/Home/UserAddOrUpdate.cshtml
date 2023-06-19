@@ -1,0 +1,194 @@
+﻿@model UserModelForAddUpdate
+@{
+    ViewData["Title"] = "Kullanıcı";
+    var id = ViewBag.ObjectId;
+
+    string name = "";
+    string lastname = "";
+    string password = "";
+    string email = "";
+    string birthday = "";
+    int birthday_day = 0;
+    int birthday_month = 0;
+    int birthday_year = 0;
+    string gender = "";
+    bool isAdmin = false;
+    bool isDeported = false;
+    if (Model!=null)
+    {
+        name = Model.name;
+        lastname = Model.lastname;
+        password = Model.password;
+        email = Model.email;
+        birthday = Model.birthday;
+        var birthday_dt = Convert.ToDateTime(birthday);
+        birthday_day = birthday_dt.Day;
+        birthday_month = birthday_dt.Month;
+        birthday_year = birthday_dt.Year;
+        gender = Model.gender;
+        isAdmin = Model.isAdmin;
+        isDeported = Model.isDeported;
+    }
+}
+
+<form method="post">
+    <input type="hidden" name="objectId" value="@id" />
+    <div class="d-flex flex-column gap-7 gap-lg-10">
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Kullanıcı</h2>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Ad</label>
+                    <input type="text" name="name" class="form-control mb-2" placeholder="Ad" value="@name">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Soyad</label>
+                    <input type="text" name="lastname" class="form-control mb-2" placeholder="Soyad" value="@lastname">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">E-Mail</label>
+                    <input type="text" name="email" class="form-control mb-2" placeholder="E-Posta" value="@email">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Şifre</label>
+                    <div class="d-flex gap-2">
+                        <input type="password" name="password" class="form-control mb-2" placeholder="Şifre">
+                        <input type="password" name="passwordAgain" class="form-control mb-2" placeholder="Şifre(Tekrar)">
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Doğum tarihi</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="birthday_day">
+                            <option>Gün</option>
+                            @{
+                                for (int i = 1; i <= 31; i++)
+                                {
+                                    if (birthday_day == i)
+                                    {
+                                        <option value="@i" selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <select class="form-select" aria-label="Select example" name="birthday_month">
+                            <option>Ay</option>
+                            @{
+                                List<string> months = new List<string>() { "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" };
+
+                                for (int i = 1; i <= 12; i++)
+                                {
+                                    if (birthday_month == i)
+                                    {
+                                        <option value="@i" selected>@months[i-1]</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@months[i-1]</option>
+                                    }
+                                }
+
+                            }
+
+                        </select>
+                        <select class="form-select" aria-label="Select example" name="birthday_year">
+                            <option>Yıl</option>
+                            @{
+                                for (int i = 2005; i >= 1900; i--)
+                                {
+                                    if (birthday_year == i)
+                                    {
+                                        <option value="@i" selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Cinsiyet</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="gender">
+                            @{
+                                if (gender == "erkek")
+                                {
+                                    <option value="erkek" selected>Erkek</option>
+                                    <option value="kadın">Kadın</option>
+                                }
+                                else
+                                {
+                                    <option value="erkek">Erkek</option>
+                                    <option value="kadın" selected>Kadın</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Admin mi?</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="isAdmin">
+
+                            @{
+                                if (isAdmin)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Yasaklı mı?</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="isDeported">
+
+                            @{
+                                if (isDeported)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="mb-10 fv-row fv-plugins-icon-container">-->
+                    <!--<label class="required form-label">Fotoğraf</label>-->
+                    <!--<input type="file" name="photo" class="form-control mb-2">-->
+                <!--</div>-->
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <a href="/Home/UserList" class="btn btn-secondary">Geri Dön</a>
+                        <a href="/Home/UserDelete/@id" class="btn btn-danger">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

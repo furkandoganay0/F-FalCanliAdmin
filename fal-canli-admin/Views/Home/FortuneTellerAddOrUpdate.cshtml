@@ -1,0 +1,240 @@
+﻿@{
+    ViewData["Title"] = "Falcı";
+    var id = ViewBag.ObjectId;
+
+    List<UserModel> userModels = ViewBag.Users;
+
+    var userid = "";
+    var nickname = "";
+    var about = "";
+    var fortuneTellerStatus = "";
+    var channelId = "";
+    var hasTarot = false;
+    double tarotServiceFee = 0;
+    var hasCoffee = false;
+    double coffeeServiceFee = 0;
+    var hasBirthChart = false;
+    double birthChartServiceFee = 0;
+    var hasAstrology = false;
+    double astrologyServiceFee = 0;
+
+    if (Model != null)
+    {
+        userid = Model.userid;
+        nickname = Model.nickname;
+        about = Model.about;
+        fortuneTellerStatus = Model.fortuneTellerStatus;
+        channelId = Model.channelId;
+        hasTarot = Model.hasTarot;
+        tarotServiceFee = Model.tarotServiceFee;
+        hasCoffee = Model.hasCoffee;
+        coffeeServiceFee = Model.coffeeServiceFee;
+        hasBirthChart = Model.hasBirthChart;
+        birthChartServiceFee = Model.birthChartServiceFee;
+        hasAstrology = Model.hasAstrology;
+        astrologyServiceFee = Model.astrologyServiceFee;
+    }
+}
+
+<form method="post">
+    <input type="hidden" name="objectId" value="@id" />
+    <div class="d-flex flex-column gap-7 gap-lg-10">
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Falcı</h2>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kullanıcı</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="userid">
+
+                            @{
+                                foreach (var item in userModels)
+                                {
+                                    if (userid == item._id)
+                                    {
+                                        <option value="@item._id" selected>@item.name @item.lastname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item._id">@item.name @item.lastname</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Takma Ad</label>
+                    <input type="text" name="nickname" class="form-control mb-2" placeholder="Takma Ad" value="@nickname">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Hakkında</label>
+                    <textarea name="about" class="form-control mb-2" placeholder="Hakkında" rows="3">@about</textarea>
+                </div>
+
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Falcı Durumu</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="fortuneTellerStatus">
+
+                            @{
+                                if (fortuneTellerStatus == "müsait")
+                                {
+                                    <option value="müsait" selected>Müsait</option>
+                                    <option value="müsait değil">Müsait Değil</option>
+                                    <option value="görüşmede">Görüşmede</option>
+                                }
+                                else if (fortuneTellerStatus == "müsait değil")
+                                {
+                                    <option value="müsait">Müsait</option>
+                                    <option value="müsait değil" selected>Müsait Değil</option>
+                                    <option value="görüşmede">Görüşmede</option>
+                                }
+                                else
+                                {
+                                    <option value="müsait">Müsait</option>
+                                    <option value="müsait değil">Müsait Değil</option>
+                                    <option value="görüşmede" selected>Görüşmede</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kanal Id</label>
+                    <input type="text" name="channelId" class="form-control mb-2" placeholder="Kanal Id" value="@channelId">
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Tarot Falı</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="hasTarot">
+
+                            @{
+                                if (hasTarot)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Tarot Falı Ücreti</label>
+                    <input type="text" name="tarotServiceFee" class="form-control mb-2" placeholder="Tarot Falı Ücreti" value="@tarotServiceFee">
+                </div>
+
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kahve Falı</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="hasCoffee">
+
+                            @{
+                                if (hasCoffee)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kahve Falı Ücreti</label>
+                    <input type="text" name="coffeeServiceFee" class="form-control mb-2" placeholder="Kahve Falı Ücreti" value="@coffeeServiceFee">
+                </div>
+
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Doğum Haritası</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="hasBirthChart">
+
+                            @{
+                                if (hasBirthChart)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Doğum Haritası Ücreti</label>
+                    <input type="text" name="birthChartServiceFee" class="form-control mb-2" placeholder="Doğum Haritası Ücreti" value="@birthChartServiceFee">
+                </div>
+
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Astroloji</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="hasAstrology">
+
+                            @{
+                                if (hasAstrology)
+                                {
+                                    <option value="2">Hayır</option>
+                                    <option value="1" selected>Evet</option>
+                                }
+                                else
+                                {
+                                    <option value="2" selected>Hayır</option>
+                                    <option value="1">Evet</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Astroloji Ücreti</label>
+                    <input type="text" name="astrologyServiceFee" class="form-control mb-2" placeholder="Astroloji Ücreti" value="@astrologyServiceFee">
+                </div>
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <a href="/Home/FortuneTeller" class="btn btn-secondary">Geri Dön</a>
+                        <a href="/Home/FortuneTellerDelete/@id" class="btn btn-danger">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,66 @@
+﻿@model List<UserModel>
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";
+}
+
+
+
+<div class="container" id="kt_content_container">
+    <div class="card">
+        <div class="card-body fs-6 p-10 p-lg-15">
+            <div class="py-10">
+                <h1 class="anchor fw-bolder mb-5" id="zero-configuration">
+                    <a href="#zero-configuration"></a>Kullanıcılar
+                </h1>
+                <a href="/Home/UserAddOrUpdate" class="btn btn-primary">Yeni Ekle</a>
+                <div class="py-5">
+                    <div id="kt_datatable_example_1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="table-responsive">
+                            <table id="kt_datatable_example_1" class="table table-row-bordered gy-5">
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-muted">
+                                        <th>Ad Soyad</th>
+                                        <th>E-mail</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bugün)</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bu Ay)</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bu Yıl)</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.name @item.lastname</td>
+                                                <td>@item.email</td>
+                                                <td>10/4</td>
+                                                <td>50/17</td>
+                                                <td>150/140</td>
+                                                <td><a href="/Home/UserAddOrUpdate?id=@item._id" class="btn btn-primary">Güncelle</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Ad Soyad</th>
+                                        <th>E-mail</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bugün)</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bu Ay)</th>
+                                        <th>Toplam Alınan/Kullanılan Kredi(Bu Yıl)</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>$("#kt_datatable_example_1").DataTable();</script>
+}

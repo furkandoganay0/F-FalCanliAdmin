@@ -1,0 +1,114 @@
+﻿@model UserCreditModelForAddUpdate
+@{
+    ViewData["Title"] = "Kullanıcı Kredileri";
+    var id = ViewBag.ObjectId;
+
+    List<FortuneTellerModel> fortuneTellerModels = ViewBag.FortuneTellers;
+    List<UserModel> userModels = ViewBag.Users;
+
+    double amount = 0;
+    var userid = "";
+    var type = "";
+    var fortuneTellerId = "";
+
+    if (Model != null)
+    {
+        amount = Model.amount;
+        userid = Model.userid;
+        type = Model.type;
+        fortuneTellerId = Model.fortuneTellerId;
+    }
+}
+
+<form method="post">
+    <input type="hidden" name="objectId" value="@id" />
+    <div class="d-flex flex-column gap-7 gap-lg-10">
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Kullanıcı Kredileri</h2>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Miktar</label>
+                    <input type="text" name="amount" class="form-control mb-2" placeholder="Başlık" value="@amount">
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kullanıcı</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="userid">
+
+                            @{
+                                foreach (var item in userModels)
+                                {
+                                    if (userid == item._id)
+                                    {
+                                        <option value="@item._id" selected>@item.name @item.lastname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item._id">@item.name @item.lastname</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">Kredi Türü</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" name="type" aria-label="Select example">
+                            @{
+                                List<string> items = new List<string>() { "harcama", "yükleme", "iade" };
+
+                                foreach (var item in items)
+                                {
+                                    if (item == type)
+                                    {
+                                        <option value="@item" selected>@item</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="form-label">Falcı</label>
+                    <div class="d-flex gap-3">
+                        <select class="form-select" aria-label="Select example" name="fortuneTellerId">
+
+                            <option>Seçiniz</option>
+                            @{
+                                foreach (var item in fortuneTellerModels)
+                                {
+                                    if (fortuneTellerId == item._id)
+                                    {
+                                        <option value="@item._id" selected>@item.nickname @item.nickname</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item._id">@item.nickname @item.nickname</option>
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                        <a href="/Home/UserCredit" class="btn btn-secondary">Geri Dön</a>
+                        <a href="/Home/UserCreditDelete/@id" class="btn btn-danger">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
